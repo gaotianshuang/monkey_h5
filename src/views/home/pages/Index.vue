@@ -2,6 +2,7 @@
   <div class="wrap">
     <h1>{{text}}</h1>
     <TestButton :btnText="btnText"></TestButton>
+    <van-button type="primary">主要按钮</van-button>
   </div>
 </template>
 
@@ -12,6 +13,8 @@ import api from '@/services/index'
 export default defineComponent({
   components: {
     TestButton
+
+    // Button
   },
   setup () {
     console.log('setup')
@@ -41,4 +44,7 @@ export default defineComponent({
 </script>
 
 <style lang="less" scoped>
+h1 {
+    font-size: 18px;
+}
 </style>

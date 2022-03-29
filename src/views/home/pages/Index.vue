@@ -1,8 +1,8 @@
 <template>
   <div class="wrap">
-    <h1>{{text}}</h1>
-    <TestButton :btnText="btnText"></TestButton>
-    <van-button type="primary">主要按钮</van-button>
+    <div class="wrap-tittle">
+      <span>元宇宙数字藏品-第三期</span>
+    </div>
   </div>
 </template>
 
@@ -44,7 +44,21 @@ export default defineComponent({
 </script>
 
 <style lang="less" scoped>
-h1 {
-    font-size: 18px;
+.wrap{
+  &-tittle {
+    width: 100%;
+    height: 2.06rem;
+    background: url('../../../assets/home/MONKEY@2x.png') center/100% no-repeat;
+    text-align: center;
+    span {
+      margin-top: .8rem;
+      font-weight: 500;
+      font-size: 22px;
+      display: inline-block;
+
+    }
+  }
+
 }
+
 </style>

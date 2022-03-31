@@ -49,7 +49,7 @@ export default defineComponent({
 <style lang="less">
 @import url('./assets/css/base.css');
 #app {
-  background: #1C212B;
+  background: rgba(0, 0, 0, .9);
   width: 100%;
   min-height: 100vh;
   margin: 0 auto;

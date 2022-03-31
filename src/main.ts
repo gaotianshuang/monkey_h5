@@ -7,11 +7,11 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import './rem.js'
-import { Button, Tabbar, TabbarItem, NavBar, Card, Popup } from 'vant'
+import { Button, Tabbar, TabbarItem, NavBar, Card, Popup, Form, Field, Checkbox } from 'vant'
 
 promise.polyfill()
 Vue.use(VueCompositionAPI)
-Vue.use(Button).use(Tabbar).use(TabbarItem).use(NavBar).use(Card).use(Popup)
+Vue.use(Button).use(Tabbar).use(TabbarItem).use(NavBar).use(Card).use(Popup).use(Form).use(Field).use(Checkbox)
 Vue.config.productionTip = false
 
 new Vue({

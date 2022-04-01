@@ -6,7 +6,7 @@ const about = [
       return import(/* webpackChunkName: "about" */ '../views/collection/pages/Index.vue')
     },
     meta: {
-      title: 'collection',
+      title: '我的藏品',
       requiresAuth: false
     }
   }

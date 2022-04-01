@@ -6,7 +6,7 @@ const about = [
       return import(/* webpackChunkName: "about" */ '../views/about/pages/Index.vue')
     },
     meta: {
-      title: 'about',
+      title: '个人中心',
       requiresAuth: false
     }
   }

@@ -46,6 +46,7 @@
 import { defineComponent, onMounted, ref } from '@vue/composition-api'
 import Popup from '../components/popup.vue'
 import Card from '../components/card.vue'
+import Api from '@/apis/index'
 // import api from '@/services/index'
 export default defineComponent({
   components: {
@@ -58,7 +59,16 @@ export default defineComponent({
     const text = ref<string>('')
     const btnText = ref<string>('测试')
     const cardShow = ref<boolean>(false)
-
+    const getHomeData = async () => {
+      try {
+        // eslint-disable-next-line no-undef
+        const result = await Api.home.getHomeList({ name: '测试' })
+        console.log(result, '232321')
+      } catch (err) {
+        console.log(err, '32321')
+      }
+    }
+    getHomeData()
     const textChange = () => {
       return new Promise<string>(resolve => {
         setTimeout(() => {
@@ -80,7 +90,8 @@ export default defineComponent({
       text,
       btnText,
       cardShow,
-      handleCollection
+      handleCollection,
+      getHomeData
     }
   }
 })

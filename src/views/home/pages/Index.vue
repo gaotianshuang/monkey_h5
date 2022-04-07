@@ -1,8 +1,8 @@
 <template>
     <div class="wrap">
       <template>
-      <div class="wrap-tittle">
-        <span>元宇宙数字藏品-第三期</span>
+      <div class="wrap-tittle" :class="{'marginT30':homeData.user_status===1}">
+        <span >元宇宙数字藏品-第三期</span>
       </div>
       <div class="wrap-tips">
         <span>国家链认证</span>
@@ -14,31 +14,33 @@
       </div>
       <div class="wrap-info">
         <div>
-          <p>4121</p>
+          <p class="number">4121</p>
           <p class="cont">项目售出总数</p>
         </div>
         <div>
-          <p>4121</p>
+          <p class="number">¥80.2</p>
           <p class="cont">当前价格</p>
         </div>
       </div>
-      <div class="wrap-card">
-        <img src="../../../assets/home/header@2x.png"/>
+      <div class="wrap-card" v-for="(item,index) in ListData.period_list" :key="index">
+        <img :src="item.cover_url"/>
         <div class="wrap-card-information">
           <div class="left">
-            <p>第二期</p>
-            <p class="opacity5">已售出：500/2000</p>
+            <p>{{item.name}}</p>
+            <p class="opacity5">已售出：{{item.sold_sku_count}}/{{item.sku_count}}</p>
           </div>
           <div class="right">
-            <div class="btn" @click="handleCollection">立即收藏</div>
+            <div class="btndisable" v-if="item.PeriodStatus ===1">未开始</div>
+            <div class="btn" v-if="item.PeriodStatus ===2"  @click="handleCollection(item)">立即收藏</div>
+            <div class="btndisable" v-if="item.PeriodStatus ===3">已售罄</div>
           </div>
         </div>
       </div>
     </template>
-      <div style="padding-bottom: 80px">
+      <div style="padding-bottom: 80px" v-if="homeData.user_status===1">
           <Popup></Popup>
       </div>
-      <Card :cardShow="cardShow" @close="handleCollection"></Card>
+      <Card :cardShow="cardShow" :periodInfo="periodInfo"  :periodID="periodID" @close="handleCollection"></Card>
     </div>
 </template>
 
@@ -59,16 +61,46 @@ export default defineComponent({
     const text = ref<string>('')
     const btnText = ref<string>('测试')
     const cardShow = ref<boolean>(false)
+    const homeData = ref<any>({})
+    const ListData = ref<any>({})
+    const periodInfo = ref<any>({})
+    const periodID = ref<number>(0)
     const getHomeData = async () => {
       try {
         // eslint-disable-next-line no-undef
-        const result = await Api.home.getHomeList({ name: '测试' })
-        console.log(result, '232321')
+        const result = await Api.home.getUserDetail()
+        homeData.value = result?.data
+        console.log(homeData.value, '232321')
       } catch (err) {
-        console.log(err, '32321')
+        console.log(err, 'err')
       }
     }
+    const getList = async () => {
+      try {
+        // eslint-disable-next-line no-undef
+        const result = await Api.home.getList()
+        ListData.value = result?.data
+        console.log(ListData.value, 'ListData')
+      } catch (err) {
+        console.log(err, 'err')
+      }
+    }
+    getList()
     getHomeData()
+    const getCardInfo = async (flag:boolean, id: number) => {
+      try {
+        // eslint-disable-next-line no-undef
+        const params = {
+          period_id: id,
+          need_sku_limit: flag
+        }
+        const result = await Api.home.getOrder(params)
+        console.log(result, '232321')
+        periodInfo.value = result?.data
+      } catch (err) {
+        console.log(err, 'err')
+      }
+    }
     const textChange = () => {
       return new Promise<string>(resolve => {
         setTimeout(() => {
@@ -76,9 +108,12 @@ export default defineComponent({
         }, 3000)
       })
     }
-    const handleCollection = () => {
-      console.log('2323', cardShow.value)
+    const handleCollection = (item:any) => {
       cardShow.value = !cardShow.value
+      if (item && item.period_id) {
+        periodID.value = item.period_id
+        getCardInfo(true, item.period_id)
+      }
     }
     onMounted(async () => {
       // const res: any = await api.testAxios()
@@ -91,7 +126,11 @@ export default defineComponent({
       btnText,
       cardShow,
       handleCollection,
-      getHomeData
+      getHomeData,
+      homeData,
+      ListData,
+      periodInfo,
+      periodID
     }
   }
 })
@@ -102,9 +141,6 @@ export default defineComponent({
   width: 100%;
   margin: 0 auto;
   text-align: center;
-  .opacity5{
-     opacity: 0.5;
-  }
   &-tittle {
     width: 100%;
     height: 2.06rem;
@@ -150,6 +186,11 @@ export default defineComponent({
     display: flex;
     align-items: center;
     position: relative;
+    .number{
+      font-style: normal;
+      font-weight: 500;
+      font-size: 15px;
+    }
     div {
        display: inline-block;
        width: 50%;
@@ -200,12 +241,30 @@ export default defineComponent({
            color: #F9FBFC;
            font-size: 16px;
          }
+         .btndisable{
+           color: rgba(249, 251, 252, .5);
+           font-weight: 500;
+           font-size: 16px;
+           margin-right: 5px;
+
+         }
        }
      .left {
        text-align: left;
+       p {
+         font-weight: 500;
+         font-size: 15px;
+       }
      }
+      .opacity5{
+        opacity: 0.5;
+        font-weight: 300!important;
+      }
     }
 
+  }
+  .marginT30{
+    margin-top: 30px;
   }
 
 }

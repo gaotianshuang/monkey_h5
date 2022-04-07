@@ -16,6 +16,7 @@
 </template>
 
 <script lang="ts">
+import './rem'
 import { defineComponent, onMounted, ref } from '@vue/composition-api'
 const PATH_MAP = ['/', '/collection', '/about']
 export default defineComponent({

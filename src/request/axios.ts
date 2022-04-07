@@ -16,7 +16,7 @@ class HTTP {
   // @ts-ignore
   request ({
     url,
-    method = 'get',
+    method,
     data = {},
     headers = {
       'Content-Type': 'application/x-www-form-urlencoded'
@@ -50,8 +50,7 @@ class HTTP {
 
   // 请求成功的回调函数
   _successCallback (res:any, resolve:any, reject:any) {
-    console.log(res)
-    const statusCode = res.code // http返回状态码
+    const statusCode = res.status // http返回状态码
     // 设置全局loading状态
     store.commit('updateLoadingStatus', {
       isLoading: false
@@ -68,7 +67,6 @@ class HTTP {
   // 请求失败的回调函数
   _handleError (res:any) {
     // TODO: 根据不同项目需求，调起当前项目使用的UI库的全局通知工具，展示错误信息
-    console.log(res)
     // 设置全局loading状态
     store.commit('updateLoadingStatus', {
       isLoading: false

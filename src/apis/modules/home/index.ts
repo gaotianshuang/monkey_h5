@@ -1,11 +1,42 @@
 export default {
   home: [
-    { name: 'getHomeList', method: 'get', url: '/mock/city', header: null }, // 首页列表
+    { name: 'getUserDetail', method: 'get', url: '/user/detail', header: null }, // 首页列表获取用户信息
     {
-      name: 'updateHomeList',
+      name: 'updateIdentify',
       method: 'post',
-      url: '/mock/update/city',
+      url: '/user/identify/',
       header: null
-    } // 修改首页列表
+    }, // 提交用户信息
+    {
+      name: 'getReport',
+      method: 'post',
+      url: '/sms/report/',
+      header: null
+    }, // 获取验证码
+    {
+      name: 'getList',
+      method: 'get',
+      url: '/period/list/',
+      header: null
+    }, // 获取列表,
+    {
+      name: 'getInfo',
+      method: 'get',
+      url: '/business/info',
+      header: null
+
+    },
+    {
+      name: 'getOrder',
+      method: 'post',
+      url: '/order/ping/',
+      header: null
+    },
+    {
+      name: 'saveOrder',
+      method: 'post',
+      url: '/order/lock',
+      header: null
+    }
   ]
 }

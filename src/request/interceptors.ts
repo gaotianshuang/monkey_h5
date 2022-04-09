@@ -1,14 +1,8 @@
-/*
- * @Descripttion:请求拦截器
- * @version:
- * @Author: husiyuan
- * @Date: 2020-07-20 15:05:57
- * @LastEditors: husiyuan
- * @LastEditTime: 2020-07-23 12:09:54
- */
+
+// @ts-nocheck
 import axios from 'axios'
 import router from './../router'
-
+// @ts-nocheck
 // 请求拦截
 const request = axios.interceptors.request.use(
   (config) => {

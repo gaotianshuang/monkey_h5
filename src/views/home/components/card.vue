@@ -77,6 +77,8 @@
   </div>
 </template>
 <script lang="ts">
+/* eslint-disable */
+// @ts-nocheck
 import { defineComponent, ref, watch, computed } from '@vue/composition-api'
 import Api from '@/apis'
 import { Toast } from 'vant'
@@ -145,14 +147,23 @@ export default defineComponent({
         const WxPayData = result.data.wx_pay
         setTimeout(() => {
           function onBridgeReady () {
+            console.log(WeixinJSBridge, 'WeixinJSBridge')
             // eslint-disable-next-line no-undef
+            // WeixinJSBridge.invoke('getBrandWCPayRequest', {
+            //   appId: WxPayData.app_id, // 公众号ID，由商户传入
+            //   timeStamp: WxPayData.timestamp, // 时间戳，自1970年以来的秒数
+            //   nonceStr: WxPayData.nonce_str, // 随机串
+            //   package: WxPayData.package,
+            //   signType: WxPayData.sign_type, // 微信签名方式：
+            //   paySign: WxPayData.pay_sign // 微信签名
+            // },
             WeixinJSBridge.invoke('getBrandWCPayRequest', {
-              appId: WxPayData.app_id, // 公众号ID，由商户传入
-              timeStamp: WxPayData.timestamp, // 时间戳，自1970年以来的秒数
-              nonceStr: WxPayData.nonce_str, // 随机串
-              package: WxPayData.package,
-              signType: WxPayData.sign_type, // 微信签名方式：
-              paySign: WxPayData.pay_sign // 微信签名
+              appId: 'wx2421b1c4370ec43b', // 公众号ID，由商户传入
+              timeStamp: '1395712654', // 时间戳，自1970年以来的秒数
+              nonceStr: 'e61463f8efa94090b1f366cccfbbb444', // 随机串
+              package: 'prepay_id=up_wx21201855730335ac86f8c43d1889123400',
+              signType: 'RSA', // 微信签名方式：
+              paySign: 'oR9d8PuhnIc+YZ8cBHFCwfgpaK9gd7vaRvkYD7rthRAZ\/X+QBhcCYL21N7cHCTUxbQ+EAt6Uy+lwSN22f5YZvI45MLko8Pfso0jm46v5hqcVwrk6uddkGuT+Cdvu4WBqDzaDjnNa5UK3GfE1Wfl2gHxIIY5lLdUgWFts17D4WuolLLkiFZV+JSHMvH7eaLdT9N5GBovBwu5yYKUR7skR8Fu+LozcSqQixnlEZUfyE55feLOQTUYzLmR9pNtPbPsu6WVhbNHMS3Ss2+AehHvz+n64GDmXxbX++IOBvm2olHu3PsOUGRwhudhVf7UcGcunXt8cqNjKNqZLhLw4jq\/xDg==' // 微信签名
             },
             function (res) {
               if (res.err_msg == 'get_brand_wcpay_request:ok') {

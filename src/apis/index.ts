@@ -1,5 +1,8 @@
+
+// @ts-nocheck
 import HTTP from '@/request/axios'
 const http = new HTTP()
+
 
 // 加载所有子模块
 const requireContext = require.context('./', true, /index\.ts$/)

@@ -14,7 +14,9 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, onMounted, ref } from '@vue/composition-api'
+/* eslint-disable */
+// @ts-nocheck
+import { defineComponent, ref } from '@vue/composition-api'
 export default defineComponent({
   components: {
     // Button

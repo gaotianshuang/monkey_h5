@@ -54,6 +54,8 @@
 </template>
 
 <script lang="ts">
+/* eslint-disable */
+// @ts-nocheck
 import { defineComponent, toRef, ref } from '@vue/composition-api'
 import { Toast, Dialog } from 'vant'
 import Api from '@/apis/index'
@@ -66,6 +68,7 @@ export default defineComponent({
     }
   },
   setup (props) {
+    // @ts-nocheck
     const myBtn = toRef(props, 'btnText')
     const show = ref(false)
     const name = ref('')

@@ -1,11 +1,4 @@
-/*
- * @Descripttion:
- * @version:
- * @Author: husiyuan
- * @Date: 2020-07-20 12:04:59
- * @LastEditors: husiyuan
- * @LastEditTime: 2020-07-21 15:14:30
- */
+// @ts-nocheck
 import axios from 'axios'
 import store from '@/store/index'
 const qs = require('qs')

@@ -45,6 +45,8 @@
 </template>
 
 <script lang="ts">
+/* eslint-disable */
+// @ts-nocheck
 import { defineComponent, onMounted, ref } from '@vue/composition-api'
 import Popup from '../components/popup.vue'
 import Card from '../components/card.vue'
@@ -94,6 +96,7 @@ export default defineComponent({
           period_id: id,
           need_sku_limit: flag
         }
+        //@ts-ignore
         const result = await Api.home.getOrder(params)
         console.log(result, '232321')
         periodInfo.value = result?.data

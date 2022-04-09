@@ -6,7 +6,7 @@ const about = [
       return import(/* webpackChunkName: "about" */ '../views/about/pages/Index.vue')
     },
     meta: {
-      title: '个人中心',
+      title: '元素猴俱乐部',
       requiresAuth: false
     }
   }

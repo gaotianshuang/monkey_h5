@@ -6,7 +6,7 @@ const home = [
       return import(/* webpackChunkName: "home" */ '../views/home/pages/Index.vue')
     },
     meta: {
-      title: '首页',
+      title: '元素猴俱乐部',
       requiresAuth: false
     }
   }

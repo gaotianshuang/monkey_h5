@@ -19,5 +19,6 @@ module.exports = {
         'generator-star-spacing': "off",
         'no-tabs':"off",
         'no-unused-vars':"off",
+        'camelcase': 'off'
     }
 }

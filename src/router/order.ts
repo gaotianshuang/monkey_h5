@@ -1,9 +1,9 @@
 const about = [
   {
-    path: '/about',
-    name: 'about',
+    path: '/order-list',
+    name: 'order',
     component: (): Promise<unknown> => {
-      return import(/* webpackChunkName: "about" */ '../views/about/pages/Index.vue')
+      return import(/* webpackChunkName: "about" */ '../views/order/pages/Index.vue')
     },
     meta: {
       title: '元素猴俱乐部',

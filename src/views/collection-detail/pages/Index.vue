@@ -33,10 +33,12 @@ import Vue from 'vue'
 export default Vue.extend({
   computed: {
     collectionDetailToShow (): any {
-      return {}
+      return this.$store.state.collectionDetailToShow
     }
+  },
+  destroyed () {
+    this.$store.commit('setCollectionDetailToShow', {})
   }
-
 })
 </script>
 

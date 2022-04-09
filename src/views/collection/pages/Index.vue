@@ -5,9 +5,9 @@
     </div>
     <Empty v-if="pageStatus === PageStatusEnum.Empty"/>
     <div v-if="pageStatus === PageStatusEnum.HasCollection" class="collections-wrapper">
-      <div v-for="collection of collectionsList" :key="collection.sku_id">
+      <div v-for="(collection, idx) of collectionsList" :key="collection.sku_id" @click="handleClick(idx)">
 
-        <SingleCollection :imageURL="collection.img_url" :collectionName="collection.goods_name"/>
+        <SingleCollection :imageURL="collection.img_url" :collectionName="collection.sku_name" />
       </div>
     </div>
   </div>
@@ -33,23 +33,17 @@ enum GoodsSkuStatus {
   GoodsSkuStatusChainSucceed = 4, // 上链成功
 }
 
-enum GoodsSkuTag {
-  GoodsSkuTagUnknown = 0,
-  GoodsSkuTagCommon = 1, // 普通
-  GoodsSkuTagRare = 2, // 稀有
-  GoodsSkuTagLegendary = 3, // 史诗
-}
-
 interface GoodsSku {
-  period_id: string,
   sku_id: string,
+  sku_name: string,
   img_url: string,
   owner_uid: string,
+  owner_name: string, // 拥有者姓名(实名认证姓名)
   goods_status: GoodsSkuStatus,
-  tag: GoodsSkuTag,
+  tag_names: string[],
   chain_hash: string,
   order_id: string,
-  chain_publish_time: number
+  chain_publish_time: number | null
 }
 
 interface DataType {
@@ -62,49 +56,51 @@ const sleep = async (result?: any) => {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(result || {})
-    }, 5000)
+    }, 500)
   })
 }
 
 const mockCollectionsResponse = {
   data: {
     goods_list: [
-      // {
-      //   goods_name: '233',
-      //   period_id: '233233233',
-      //   sku_id: '233233233233',
-      //   img_url: require('@/assets/collection/Empty.png'),
-      //   owner_uid: '233233233233',
-      //   goods_status: '233',
-      //   tag: '233',
-      //   chain_hash: '233233233233',
-      //   order_id: '233233233233',
-      //   chain_publish_time: '233233233233'
-      // },
-      // {
-      //   goods_name: '666',
-      //   period_id: '233233233',
-      //   sku_id: '66666666666',
-      //   img_url: require('@/assets/collection/Empty.png'),
-      //   owner_uid: '233233233233',
-      //   goods_status: '233',
-      //   tag: '233',
-      //   chain_hash: '233233233233',
-      //   order_id: '233233233233',
-      //   chain_publish_time: '233233233233'
-      // },
-      // {
-      //   goods_name: '999',
-      //   period_id: '233233233',
-      //   sku_id: '99999999999',
-      //   img_url: require('@/assets/collection/Empty.png'),
-      //   owner_uid: '233233233233',
-      //   goods_status: '233',
-      //   tag: '233',
-      //   chain_hash: '233233233233',
-      //   order_id: '233233233233',
-      //   chain_publish_time: '233233233233'
-      // }
+      {
+        sku_id: '233233233233',
+        sku_name: '233',
+        img_url: require('@/assets/collection/Empty.png'),
+        owner_uid: '233233233233',
+        owner_name: 'user1',
+        goods_status: '233',
+        tag_names: ['tag1', 'tag2', 'tag3'],
+        chain_hash: null,
+        order_id: '233233233233',
+        chain_publish_time: null
+      },
+      {
+        sku_name: '666',
+        period_id: '233233233',
+        sku_id: '66666666666',
+        img_url: require('@/assets/collection/Empty.png'),
+        owner_uid: '233233233233',
+        owner_name: 'user1',
+        goods_status: '233',
+        tag_names: ['tag1', 'tag2', 'tag3'],
+        chain_hash: '233233233233',
+        order_id: '233233233233',
+        chain_publish_time: '233233233233'
+      },
+      {
+        sku_name: '999',
+        period_id: '233233233',
+        sku_id: '99999999999',
+        img_url: require('@/assets/collection/Empty.png'),
+        owner_uid: '233233233233',
+        owner_name: 'user1',
+        goods_status: '233',
+        tag_names: ['tag1', 'tag2', 'tag3'],
+        chain_hash: '233233233233',
+        order_id: '233233233233',
+        chain_publish_time: '233233233233'
+      }
     ],
     total_count: 10
   }
@@ -139,6 +135,13 @@ export default Vue.extend({
       const result: any = await sleep(mockCollectionsResponse)
       this.collectionsList = result.data.goods_list
       this.isLoading = false
+    },
+    handleClick (idx: number) {
+      this.$store.commit('setCollectionDetailToShow', this.collectionsList[idx])
+
+      this.$router.push({
+        path: '/collection-detail'
+      })
     }
   },
   components: {
